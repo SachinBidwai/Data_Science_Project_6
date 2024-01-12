@@ -12,13 +12,11 @@ class DataIngestion:
     def export_data_into_feature_store(self):
         try:
             logging.info("start: data load from mongoDB")
-
             client = MongoClient(self.train_config.mongodb_url_key)
             database = client[self.train_config.database_name]
             collection = database[self.train_config.collection_name]
 
             cursor = collection.find()
-
             data = pd.DataFrame(list(cursor))
 
             dir_path = os.path.dirname(self.train_config.feature_store_dir_path)
